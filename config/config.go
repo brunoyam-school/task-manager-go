@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func InitConfig() {
+func Initialize() {
 	viper.SetConfigName("config")
 	viper.AddConfigPath("./config")
 	if err := viper.ReadInConfig(); err != nil {

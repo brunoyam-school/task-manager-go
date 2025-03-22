@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"awesomeProject5/internal/entity"
 	"database/sql"
 	"github.com/spf13/viper"
 	_ "modernc.org/sqlite"
@@ -30,15 +29,4 @@ func New() *Repo {
 	}
 
 	return &Repo{db: db}
-}
-
-func (r *Repo) Create(task entity.Task) error {
-	query := `INSERT INTO tasks (ID, TITLE, DESCRIPTION, STATUS, PRIORITY) VALUES (?, ?, ?, ?, ?);`
-
-	_, err := r.db.Exec(query, task.ID, task.Title, task.Description, task.Status, task.Priority)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }

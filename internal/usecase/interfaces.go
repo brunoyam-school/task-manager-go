@@ -1,7 +1,10 @@
 package usecase
 
-import "awesomeProject5/internal/entity"
+import (
+	"awesomeProject5/internal/entity"
+	"context"
+)
 
 type IDatabase interface {
-	Create(task entity.Task) error
+	Create(context.Context, entity.Task) error
 }
