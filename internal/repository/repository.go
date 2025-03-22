@@ -1,7 +1,9 @@
 package repository
 
 import (
+	_ "awesomeProject5/migrations"
 	"database/sql"
+	"github.com/pressly/goose/v3"
 	"github.com/spf13/viper"
 	_ "modernc.org/sqlite"
 )
@@ -16,17 +18,21 @@ func New() *Repo {
 		panic(err)
 	}
 
-	initQuery := `CREATE TABLE IF NOT EXISTS tasks (
-	id TEXT PRIMARY KEY,
-	title TEXT NOT NULL,
-	description TEXT,
-	status BOOLEAN,
-	priority INTEGER);`
-
-	_, err = db.Exec(initQuery)
-	if err != nil {
+	if err = UpMigrations(db); err != nil {
 		panic(err)
 	}
 
 	return &Repo{db: db}
+}
+
+func UpMigrations(db *sql.DB) error {
+	if err := goose.SetDialect("sqlite"); err != nil {
+		return err
+	}
+
+	if err := goose.Up(db, "./migrations"); err != nil {
+		return err
+	}
+
+	return nil
 }
