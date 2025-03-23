@@ -1,4 +1,4 @@
-package repository
+package sqlite
 
 import (
 	_ "awesomeProject5/migrations"

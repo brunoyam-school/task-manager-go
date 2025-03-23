@@ -1,4 +1,4 @@
-package repository
+package sqlite
 
 import (
 	"awesomeProject5/internal/entity"
